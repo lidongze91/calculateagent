@@ -7,19 +7,19 @@
 //
 
 import UIKit
-
+import Parse
+import TextFieldEffects
 class ViewController: UIViewController {
-
+    let serialQueue = DispatchQueue(label: "haha" )
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let g = GlobalCash.shared
+        g.goingOut(num: 130000)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
