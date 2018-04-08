@@ -8,18 +8,27 @@
 
 import UIKit
 import TextFieldEffects
+import NVActivityIndicatorView
 class HuanHu_DeliveryVC: UIViewController {
     private var deliveryRecord: DeliveryRecord?
     var titleLabel: UILabel!
     // fields
     var zone5Field: HoshiTextField!
     var zone2Field: HoshiTextField!
+    var animation: NVActivityIndicatorView!
     var button: UIButton!
     final let textFieldWidth = 330
     var initY = 180
     final let offSetY = 100
     override func viewDidLoad() {
         super.viewDidLoad()
+        animation = NVActivityIndicatorView(frame: CGRect(x: view.frame.midX-50,
+                                                          y: view.frame.midY-50,
+                                                          width: 100,
+                                                          height: 100),
+                                            type: .circleStrokeSpin, color: themeGreen,
+                                            padding: 10)
+        self.view.addSubview(animation)
         zone2Field = HoshiTextField(frame: CGRect(x: 20, y: initY, width: textFieldWidth, height: 40))
         initY += offSetY
         zone5Field = HoshiTextField(frame: CGRect(x: 20, y: initY, width: textFieldWidth, height: 40))
@@ -60,8 +69,12 @@ class HuanHu_DeliveryVC: UIViewController {
         let hospital:String = "环湖"
         deliveryRecord = DeliveryRecord(date:formattedDate, hospital: hospital, list: list)
         if let deliveryRecord = deliveryRecord {
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            self.animation.startAnimating()
             DeliveryRecordsOps.uploads(deliveryRecord: deliveryRecord) {
                 status in
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.animation.stopAnimating()
                 if (status) {
                     let alert = UIAlertController(title: "上传成功✅",
                                                   message: "已上传送货数量", preferredStyle: UIAlertControllerStyle.alert)

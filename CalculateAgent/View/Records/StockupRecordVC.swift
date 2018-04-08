@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import NVActivityIndicatorView
 class StockupRecordVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var myTable: UITableView = UITableView()
@@ -15,18 +15,28 @@ class StockupRecordVC: UIViewController, UITableViewDataSource, UITableViewDeleg
     var button: UIButton!
     var initY = 0
     final let offSetY = 70
+    var animation: NVActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        myTable.frame = CGRect(x: 0, y: initY, width: Int(view.frame.width),
+                               height: Int(view.frame.height))
+        animation = NVActivityIndicatorView(frame: CGRect(x: view.frame.midX-50,
+                                                          y: view.frame.midY-50,
+                                                          width: 100,
+                                                          height: 100),
+                                            type: .circleStrokeSpin, color: themeGreen,
+                                            padding: 10)
+        animation.startAnimating()
+        self.view.addSubview(animation)
         DeliveryRecordsOps.downloadStock {
             records in
+            self.view.addSubview(self.myTable)
+            self.animation.stopAnimating()
             self.records = records
             self.myTable.delegate = self
             self.myTable.dataSource = self
             self.myTable.reloadData()
         }
-        myTable.frame = CGRect(x: 0, y: initY, width: Int(view.frame.width),
-                               height: Int(view.frame.height))
-        self.view.addSubview(myTable)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

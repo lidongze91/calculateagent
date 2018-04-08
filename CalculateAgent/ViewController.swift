@@ -9,12 +9,22 @@
 import UIKit
 import Parse
 import TextFieldEffects
+import NVActivityIndicatorView
 class ViewController: UIViewController {
     let serialQueue = DispatchQueue(label: "haha" )
     override func viewDidLoad() {
         super.viewDidLoad()
-        let g = GlobalCash.shared
-        g.goingOut(num: 130000)
+        let animation = NVActivityIndicatorView(frame: CGRect(x: view.frame.midX-50,
+                                                              y: view.frame.midY-50,
+                                                              width: 100,
+                                                              height: 100),
+                                                type: .circleStrokeSpin, color: themeGreen)
+        animation.startAnimating()
+        let a = animation.isAnimating
+        print(view.frame.midX)
+        print(view.frame.midY)
+        print(a)
+        self.view.addSubview(animation)
     }
 
     override func didReceiveMemoryWarning() {

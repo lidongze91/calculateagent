@@ -8,6 +8,7 @@
 
 import UIKit
 import TextFieldEffects
+import NVActivityIndicatorView
 class WuJing_DeliveryVC: UIViewController {
     private var deliveryRecord: DeliveryRecord?
     var titleLabel: UILabel!
@@ -15,12 +16,20 @@ class WuJing_DeliveryVC: UIViewController {
     var zone6Field: HoshiTextField!
     var zone9Field: HoshiTextField!
     var zone16Field: HoshiTextField!
+    var animation: NVActivityIndicatorView!
     var button: UIButton!
     final let textFieldWidth = 330
     var initY = 180
     final let offSetY = 100
     override func viewDidLoad() {
         super.viewDidLoad()
+        animation = NVActivityIndicatorView(frame: CGRect(x: view.frame.midX-50,
+                                                          y: view.frame.midY-50,
+                                                          width: 100,
+                                                          height: 100),
+                                            type: .circleStrokeSpin, color: themeGreen,
+                                            padding: 10)
+        self.view.addSubview(animation)
         zone6Field = HoshiTextField(frame: CGRect(x: 20, y: initY, width: textFieldWidth, height: 40))
         initY += offSetY
         zone9Field = HoshiTextField(frame: CGRect(x: 20, y: initY, width: textFieldWidth, height: 40))
@@ -67,8 +76,12 @@ class WuJing_DeliveryVC: UIViewController {
         let hospital:String = "武警"
         deliveryRecord = DeliveryRecord(date:formattedDate, hospital: hospital, list: list)
         if let deliveryRecord = deliveryRecord {
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            self.animation.startAnimating()
             DeliveryRecordsOps.uploads(deliveryRecord: deliveryRecord) {
                 status in
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.animation.stopAnimating()
                 if (status) {
                     let alert = UIAlertController(title: "上传成功✅",
                                                   message: "已上传送货数量", preferredStyle: UIAlertControllerStyle.alert)

@@ -8,12 +8,21 @@
 
 import UIKit
 import TextFieldEffects
+import NVActivityIndicatorView
 class StockUpVC: UIViewController {
     var field: HoshiTextField!
     var button: UIButton!
+    var animation: NVActivityIndicatorView!
     final let textFieldWidth = 330
     override func viewDidLoad() {
         super.viewDidLoad()
+        animation = NVActivityIndicatorView(frame: CGRect(x: view.frame.midX-50,
+                                                          y: view.frame.midY-50,
+                                                          width: 100,
+                                                          height: 100),
+                                            type: .circleStrokeSpin, color: themeGreen,
+                                            padding: 10)
+        self.view.addSubview(animation)
         field = HoshiTextField(frame: CGRect(x: 20, y: 300, width: textFieldWidth, height: 70))
         button = UIButton(frame: CGRect(x: 20, y: 600, width: 330, height: 50))
         button.addTarget(self, action: #selector(StockUpVC.on_click(_:)), for: .touchUpInside)
@@ -50,8 +59,12 @@ class StockUpVC: UIViewController {
         let day = calendar.component(.day, from: date)
         let formattedDate:String = "\(year) / \(month) / \(day)"
         let stock = StockUpRecord(date: formattedDate, totalNum: Int(field.text!)!)
+        self.animation.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         DeliveryRecordsOps.uploadStock(stockupRecord: stock) {
             status in
+            UIApplication.shared.endIgnoringInteractionEvents()
+            self.animation.stopAnimating()
             if (status) {
                 let alert = UIAlertController(title: "上传成功✅",
                                               message: "已上传入库数量", preferredStyle: UIAlertControllerStyle.alert)

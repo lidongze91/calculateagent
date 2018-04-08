@@ -56,6 +56,10 @@
 		B5814625206CBAA5005A0897 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5814620206CBAA5005A0897 /* Parse.framework */; };
 		B5814626206CBAA5005A0897 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5814620206CBAA5005A0897 /* Parse.framework */; };
 		B5E99ED1207950C9004D340A /* HospitalSelectionVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E99ED0207950C9004D340A /* HospitalSelectionVC2.swift */; };
+		B5E99ED520795F7B004D340A /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E99ED420795F7B004D340A /* NVActivityIndicatorView.framework */; };
+		B5E99ED62079605B004D340A /* NVActivityIndicatorView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E99ED420795F7B004D340A /* NVActivityIndicatorView.framework */; };
+		B5E99ED72079605B004D340A /* NVActivityIndicatorView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B5E99ED420795F7B004D340A /* NVActivityIndicatorView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B5E99ED820796074004D340A /* NVActivityIndicatorView.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B5E99ED420795F7B004D340A /* NVActivityIndicatorView.framework */; };
 		B5F2F453206CE8C50001BF04 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2F452206CE8C50001BF04 /* libsqlite3.tbd */; };
 		B5F2F455206CE8D20001BF04 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2F454206CE8D20001BF04 /* libz.tbd */; };
 		B5F2F457206CE8F70001BF04 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F2F456206CE8F70001BF04 /* AudioToolbox.framework */; };
@@ -105,6 +109,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B5E99ED72079605B004D340A /* NVActivityIndicatorView.framework in Embed Frameworks */,
 				B55245DC2071BD98007E72E9 /* TextFieldEffects.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -116,6 +121,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				B5E99ED820796074004D340A /* NVActivityIndicatorView.framework in CopyFiles */,
 				B5F2F47D20711BAF0001BF04 /* TextFieldEffects.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,6 +185,7 @@
 		B5814620206CBAA5005A0897 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		B5814628206CC060005A0897 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B5E99ED0207950C9004D340A /* HospitalSelectionVC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalSelectionVC2.swift; sourceTree = "<group>"; };
+		B5E99ED420795F7B004D340A /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NVActivityIndicatorView.framework; path = Carthage/Build/iOS/NVActivityIndicatorView.framework; sourceTree = "<group>"; };
 		B5F2F452206CE8C50001BF04 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B5F2F454206CE8D20001BF04 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B5F2F456206CE8F70001BF04 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -208,12 +215,14 @@
 				B5F2F45B206CE9230001BF04 /* Security.framework in Frameworks */,
 				B5F2F45A206CE91E0001BF04 /* QuartzCore.framework in Frameworks */,
 				B5F2F459206CE9120001BF04 /* CoreLocation.framework in Frameworks */,
+				B5E99ED520795F7B004D340A /* NVActivityIndicatorView.framework in Frameworks */,
 				B5F2F458206CE9040001BF04 /* CFNetwork.framework in Frameworks */,
 				B5F2F457206CE8F70001BF04 /* AudioToolbox.framework in Frameworks */,
 				B5F2F455206CE8D20001BF04 /* libz.tbd in Frameworks */,
 				B5F2F453206CE8C50001BF04 /* libsqlite3.tbd in Frameworks */,
 				B550571A206CE60B0036D1FC /* ParseUI.framework in Frameworks */,
 				B5814624206CBAA5005A0897 /* Parse.framework in Frameworks */,
+				B5E99ED62079605B004D340A /* NVActivityIndicatorView.framework in Frameworks */,
 				B550571D206CE60B0036D1FC /* ParseFacebookUtilsV4.framework in Frameworks */,
 				B550571B206CE60B0036D1FC /* ParseTwitterUtils.framework in Frameworks */,
 				B550571C206CE60B0036D1FC /* ParseFacebookUtils.framework in Frameworks */,
@@ -314,6 +323,7 @@
 		B58145E2206CBA8A005A0897 = {
 			isa = PBXGroup;
 			children = (
+				B5E99ED420795F7B004D340A /* NVActivityIndicatorView.framework */,
 				B5F2F47A207117390001BF04 /* TextFieldEffects.framework */,
 				B5505718206CE60B0036D1FC /* ParseFacebookUtils.framework */,
 				B5505719206CE60B0036D1FC /* ParseFacebookUtilsV4.framework */,

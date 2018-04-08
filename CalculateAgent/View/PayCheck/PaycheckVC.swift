@@ -8,6 +8,7 @@
 
 import UIKit
 import TextFieldEffects
+import NVActivityIndicatorView
 class PaycheckVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var pickerView: UIPickerView!
@@ -15,9 +16,17 @@ class PaycheckVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     var payCheckField: HoshiTextField!
     var button: UIButton!
     var selectedHospital: String = "医附院"
+    var animation: NVActivityIndicatorView!
     final let textFieldWidth = 330
     override func viewDidLoad() {
         super.viewDidLoad()
+        animation = NVActivityIndicatorView(frame: CGRect(x: view.frame.midX-50,
+                                                          y: view.frame.midY-50,
+                                                          width: 100,
+                                                          height: 100),
+                                            type: .circleStrokeSpin, color: themeGreen,
+                                            padding: 10)
+        self.view.addSubview(animation)
         payCheckField = HoshiTextField(frame: CGRect(x: 20, y: 300, width: textFieldWidth, height: 70))
         button = UIButton(frame: CGRect(x: 20, y: 600, width: 330, height: 50))
         button.addTarget(self, action: #selector(PaycheckVC.on_click(_:)), for: .touchUpInside)
@@ -75,8 +84,12 @@ class PaycheckVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         let hospital:String = self.selectedHospital
         let paycheck = PaycheckRecord(date: formattedDate, hospital: hospital,
                                       totalValue: Int(self.payCheckField.text!)!)
+        self.animation.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         DeliveryRecordsOps.uploadPaycheck(paycheck: paycheck) {
             status in
+            self.animation.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
             if (status) {
                 let alert = UIAlertController(title: "上传成功✅",
                                               message: "已上传支票金额", preferredStyle: UIAlertControllerStyle.alert)

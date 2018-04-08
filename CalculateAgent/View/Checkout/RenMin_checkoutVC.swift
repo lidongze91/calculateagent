@@ -8,6 +8,7 @@
 
 import UIKit
 import TextFieldEffects
+import NVActivityIndicatorView
 class RenMin_checkoutVC: UIViewController, UITextFieldDelegate {
     // things for show page
     var showPage: Bool = false
@@ -31,6 +32,7 @@ class RenMin_checkoutVC: UIViewController, UITextFieldDelegate {
     var zone1Cash: AkiraTextField!
     var zone2Cash: AkiraTextField!
     var zone3Cash: AkiraTextField!
+    var animation: NVActivityIndicatorView!
     var button: UIButton!
     var initY = 150
     let offset = 45
@@ -44,6 +46,13 @@ class RenMin_checkoutVC: UIViewController, UITextFieldDelegate {
         } else {
             editable = true
         }
+        animation = NVActivityIndicatorView(frame: CGRect(x: view.frame.midX-50,
+                                                          y: view.frame.midY-50,
+                                                          width: 100,
+                                                          height: 100),
+                                            type: .circleStrokeSpin, color: themeGreen,
+                                            padding: 10)
+        self.view.addSubview(animation)
         NotificationCenter.default.addObserver(self, selector: #selector(RenMin_checkoutVC.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RenMin_checkoutVC.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         // tap to hide keyboard
@@ -195,8 +204,12 @@ class RenMin_checkoutVC: UIViewController, UITextFieldDelegate {
         let formattedDate:String = "\(year) / \(month) / \(day)"
         let hospital:String = "人民"
         let checkoutRecord = CheckoutRecord(date: formattedDate, hospital: hospital, totalDeliveryNums: list1, totalCheckoutNums: list2, totalCheckoutCash: list3)
+        self.animation.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         DeliveryRecordsOps.uploadCheckout(checkoutRecord: checkoutRecord) {
             status in
+            self.animation.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
             if (status) {
                 let alert = UIAlertController(title: "上传成功✅",
                                               message: "已上传所有数据和金额", preferredStyle: UIAlertControllerStyle.alert)
